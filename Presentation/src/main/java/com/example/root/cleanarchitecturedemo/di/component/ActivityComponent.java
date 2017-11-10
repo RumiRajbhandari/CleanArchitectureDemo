@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.example.root.cleanarchitecturedemo.MainActivity;
+import com.example.root.cleanarchitecturedemo.UserDetails;
 import com.example.root.cleanarchitecturedemo.di.modules.ActivityModule;
 
 import dagger.Component;
@@ -16,4 +17,5 @@ import dagger.Component;
 public interface ActivityComponent {
 //    Activity activity();
     void inject(MainActivity mainActivity);
+    void inject(UserDetails userDetails);
 }

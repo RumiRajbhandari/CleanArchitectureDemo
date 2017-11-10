@@ -1,4 +1,4 @@
-package com.example.data;
+package com.example.data.Entity;
 
 /**
  * Created by root on 11/6/17.

@@ -2,6 +2,7 @@ package com.example.root.cleanarchitecturedemo.di.component;
 
 import android.content.Context;
 
+import com.example.data.UserCache;
 import com.example.domain.Repository.UserRepository;
 import com.example.root.cleanarchitecturedemo.DemoApplication;
 import com.example.root.cleanarchitecturedemo.MainActivity;
@@ -22,4 +23,5 @@ public interface ApplicationComponent {
     void inject(DemoApplication demoApplication);
 
     UserRepository userRepository();
+    UserCache userCache();
 }

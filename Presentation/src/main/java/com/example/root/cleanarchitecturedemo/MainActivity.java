@@ -1,38 +1,41 @@
 package com.example.root.cleanarchitecturedemo;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.data.UserDataRepository;
-import com.example.domain.Repository.UserRepository;
 import com.example.domain.User;
-import com.example.domain.interactor.GetUserListUseCase;
+import com.example.root.cleanarchitecturedemo.adapter.ViewAdapter;
 import com.example.root.cleanarchitecturedemo.di.component.ActivityComponent;
 import com.example.root.cleanarchitecturedemo.di.component.ApplicationComponent;
 import com.example.root.cleanarchitecturedemo.di.component.DaggerActivityComponent;
-import com.example.root.cleanarchitecturedemo.di.component.DaggerApplicationComponent;
-import com.example.root.cleanarchitecturedemo.di.modules.ActivityModule;
-import com.example.root.cleanarchitecturedemo.di.modules.ApplicaitonModule;
 import com.example.root.cleanarchitecturedemo.presenter.UserListPresenter;
 import com.example.root.cleanarchitecturedemo.view.UserListview;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity implements UserListview {
+public class MainActivity extends AppCompatActivity implements UserListview, SwipeRefreshLayout.OnRefreshListener {
     protected ApplicationComponent applicationComponent;
     List<User> users=new ArrayList<>();
     List<User> userList=new ArrayList<>();
-    User user;
     String TAG="TAG";
-    UserRepository userRepository;
-    GetUserListUseCase getUserListUseCase;
-    UserListview userListview;
     TextView id,name,address;
+    Toolbar toolbar;
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    RecyclerView recyclerView;
+    ViewAdapter viewAdapter;
     @Inject
     UserDataRepository userDataRepository;
     @Inject
@@ -43,32 +46,56 @@ public class MainActivity extends AppCompatActivity implements UserListview {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*user=new User(1,1,"rumi","ktm");
-        users.add(user);*/
-        id=findViewById(R.id.id);
-        name=findViewById(R.id.name);
-        address=findViewById(R.id.address);
-
-//        ActivityComponent activityComponent=DaggerActivityComponent.builder().
-//        activityComponent.inject(this);
+        recyclerView=findViewById(R.id.recyclerView);
+        toolbar=findViewById(R.id.toolbar);
+        swipeRefreshLayout=findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        setSupportActionBar(toolbar);
+        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+*/
        ActivityComponent activityComponent= DaggerActivityComponent.builder()
                .applicationComponent(DemoApplication.get(this).getComponent())
                .build();
        activityComponent.inject(this);
-
-
-//        userDataRepository=new UserDataRepository();
-//        getUserListUseCase=new GetUserListUseCase(userDataRepository);
-
-//      UserListPresenter userListPresenter=new UserListPresenter(getUserListUseCase);
         userListPresenter.getUserList();
         userListPresenter.setView(this);
 
     }
 
+
+
+
+    @Override
+    public void renderUserList(List<User> userCollection) {
+        List<User> userList1=new ArrayList<>();
+        userList1=(List<User>)userCollection;
+
+
+        viewAdapter=new ViewAdapter(getApplicationContext(),userList1);
+        RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),R.drawable.divider));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        if (swipeRefreshLayout.isRefreshing()){
+            swipeRefreshLayout.setRefreshing(false);
+        }
+        recyclerView.setAdapter(viewAdapter);
+
+    }
+
+    @Override
+    public void viewUser(User user) {
+
+    }
+
     @Override
     public void showLoading() {
-        Log.e(TAG, "showLoading: " );
 
     }
 
@@ -87,24 +114,12 @@ public class MainActivity extends AppCompatActivity implements UserListview {
 
     }
 
-    @Override
-    public void renderUser(User user) {
-
-    }
 
     @Override
-    public void renderUserList(List<User> userCollection) {
-        List<User> userList1=new ArrayList<>();
-        userList1=(List<User>)userCollection;
-        Log.e(TAG, "renderUserList: "+((List<User>) userCollection).get(0).getTitle() );
-        id.setText(String.valueOf(userCollection.get(0).getUserId()));
-        name.setText(userCollection.get(0).getTitle());
-        address.setText(userCollection.get(0).getBody());
-
-    }
-
-    @Override
-    public void viewUser(User user) {
+    public void onRefresh() {
+        Toast.makeText(this, "Refreshing", Toast.LENGTH_SHORT).show();
+        userListPresenter.getUserList();
+        userListPresenter.setView(this);
 
     }
 }

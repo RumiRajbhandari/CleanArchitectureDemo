@@ -1,5 +1,6 @@
 package com.example.root.cleanarchitecturedemo.view.acitvity;
 
+import com.example.domain.Post;
 import com.example.domain.User;
 import com.example.domain.interactor.GetUserListUseCase;
 import com.example.root.cleanarchitecturedemo.presenter.UserListPresenter;
@@ -34,8 +35,6 @@ public class UserListActivity implements UserListview {
     @Override
     public void hideRetry() {}
 
-    @Override
-    public void renderUser(User user) {}
 
     @Override
     public void renderUserList(List<User> userCollection) {
@@ -46,4 +45,6 @@ public class UserListActivity implements UserListview {
     public void viewUser(User user) {
 
     }
+
+
 }

@@ -9,7 +9,7 @@ import java.util.List;
  * Created by root on 11/5/17.
  */
 
-public interface UserListview extends UserDetailsView{
+public interface UserListview extends LoadDataView{
     void renderUserList(List<User> userCollection);
     void viewUser(User user);
 }

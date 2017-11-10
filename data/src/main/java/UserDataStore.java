@@ -1,4 +1,4 @@
-import com.example.data.UserEntity;
+import com.example.data.Entity.UserEntity;
 
 import java.util.List;
 

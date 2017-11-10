@@ -5,31 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.root.cleanarchitecturedemo.MainActivity">
+    tools:context="com.example.root.cleanarchitecturedemo.UserDetails">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
-
-
-
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+        android:id="@+id/swipeRefreshLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
-            android:scrollbars="vertical">
-
-        </android.support.v7.widget.RecyclerView>
+            android:scrollbars="vertical"
+            android:padding="10dp"></android.support.v7.widget.RecyclerView>
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

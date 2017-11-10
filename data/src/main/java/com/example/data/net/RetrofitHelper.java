@@ -17,7 +17,7 @@ public class RetrofitHelper {
         }
         else {
             retrofit=new Retrofit.Builder()
-                    .baseUrl("https://jsonplaceholder.typicode.com")
+                    .baseUrl("https://jsonplaceholder.typicode.com/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();

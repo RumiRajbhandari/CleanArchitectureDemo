@@ -1,6 +1,6 @@
 package com.example.data.mapper;
 
-import com.example.data.UserEntity;
+import com.example.data.Entity.UserEntity;
 import com.example.domain.User;
 
 import java.util.ArrayList;

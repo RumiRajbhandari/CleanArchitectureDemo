@@ -2,6 +2,8 @@ package com.example.root.cleanarchitecturedemo.di.modules;
 
 import android.content.Context;
 
+import com.example.data.UserCache;
+import com.example.data.UserCacheImpl;
 import com.example.data.UserDataRepository;
 import com.example.domain.Repository.UserRepository;
 import com.example.root.cleanarchitecturedemo.DemoApplication;
@@ -26,6 +28,10 @@ public class ApplicaitonModule {
     @Provides @Singleton
     Context provideApplicationContext() {
         return this.application;
+    }
+    @Provides @Singleton
+    UserCache provideUserCache(UserCacheImpl userCache) {
+        return userCache;
     }
     @Provides
     UserRepository getUserRepository(UserDataRepository userDataRepository){

@@ -1,5 +1,6 @@
 package com.example.domain.Repository;
 
+import com.example.domain.Post;
 import com.example.domain.User;
 
 import java.util.List;
@@ -14,5 +15,5 @@ import io.reactivex.Single;
 public interface UserRepository {
 
     Observable<List<User>> users();
-    Observable<User> user(final int userId);
+    Observable<List<Post>> posts(final int id);
 }
