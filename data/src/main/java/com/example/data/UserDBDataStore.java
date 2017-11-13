@@ -23,7 +23,17 @@ public class UserDBDataStore implements UserDataStore {
     }
 
     @Override
-    public Observable<List<Post>> post(int id) {
-        return null;
+    public Observable<List<Post>> postList(int postId) {
+        return userCache.getAllPost(postId);
+    }
+
+    @Override
+    public Observable<List<User>> userEntityDetail(int userId) {
+        return this.userCache.get(userId);
+    }
+
+    @Override
+    public Observable<List<Post>> postEntityDetail(int postId) {
+        return this.userCache.getAllPost(postId);
     }
 }

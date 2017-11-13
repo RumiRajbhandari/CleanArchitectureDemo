@@ -43,15 +43,13 @@ public class UserListPresenter implements Presenter {
         this.getUserListUseCase.execute(new DisposableObserver<List<User>>() {
             @Override
             public void onNext(List<User> users) {
+                Log.e(TAG, "onNext: >>>>>>>executBoeth" );
                 showUserList(users);
-
-
             }
 
             @Override
             public void onError(Throwable e) {
                 Log.e(TAG, "onError: "+e );
-
             }
 
             @Override

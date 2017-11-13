@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.example.root.cleanarchitecturedemo.di.component.ApplicationComponent;
 import com.example.root.cleanarchitecturedemo.di.component.DaggerApplicationComponent;
@@ -15,25 +16,26 @@ import com.facebook.stetho.Stetho;
  * Created by root on 11/6/17.
  */
 
-public class DemoApplication extends Application{
+public class DemoApplication extends MultiDexApplication {
     protected ApplicationComponent applicationComponent;
+
     public static DemoApplication get(Context context) {
         return (DemoApplication) context.getApplicationContext();
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
-        Stetho.InitializerBuilder builder= Stetho.newInitializerBuilder(this);
+        Stetho.InitializerBuilder builder = Stetho.newInitializerBuilder(this);
         builder.enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this));
         builder.enableDumpapp(Stetho.defaultDumperPluginsProvider(this));
-        Stetho.Initializer initializer=builder.build();
+        Stetho.Initializer initializer = builder.build();
         Stetho.initialize(initializer);
-        applicationComponent= DaggerApplicationComponent.builder().applicaitonModule(new ApplicaitonModule(this)).build();
+        applicationComponent = DaggerApplicationComponent.builder().applicaitonModule(new ApplicaitonModule(this)).build();
         applicationComponent.inject(this);
-
-
     }
-    public ApplicationComponent getComponent(){
+
+    public ApplicationComponent getComponent() {
         return applicationComponent;
     }
 

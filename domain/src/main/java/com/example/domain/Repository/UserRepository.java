@@ -15,5 +15,9 @@ import io.reactivex.Single;
 public interface UserRepository {
 
     Observable<List<User>> users();
-    Observable<List<Post>> posts(final int id);
+    Observable<List<User>> getNetData();
+    Observable<List<User>> user(int userId);
+    Observable<List<Post>> posts(int id);
+    Observable<List<Post>> getNetDataForPost(int id);
+
 }

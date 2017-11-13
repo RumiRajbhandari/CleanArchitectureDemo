@@ -37,10 +37,30 @@ public class UserDataRepository implements UserRepository {
     }
 
     @Override
+    public Observable<List<User>> getNetData() {
+        UserNetDataStore userNetDataStore=new UserNetDataStore();
+        return userNetDataStore.userList();
+    }
+
+    @Override
+    public Observable<List<User>> user(int userId) {
+        final UserDataStore userDataStore=userDataStorageFactory.create(userId);
+        return userDataStore.userEntityDetail(userId);
+    }
+
+
+    @Override
     public Observable<List<Post>> posts(int id)
     {
-        Log.e(TAG, "user data repository" );
-        return userNetDataStore.getPost(id);
+        UserDataStore userDataStore=userDataStorageFactory.create(id);
+        Log.e(TAG, "user data repository for post" );
+        return userDataStore.postEntityDetail(id);
+    }
+
+    @Override
+    public Observable<List<Post>> getNetDataForPost(int id) {
+        UserNetDataStore userNetDataStore=new UserNetDataStore();
+        return  userNetDataStore.postList(id);
     }
 
 

@@ -36,7 +36,7 @@ public class PostListPresenter {
         this.getPostUseCase.execute(new DisposableObserver<List<Post>>() {
             @Override
             public void onNext(List<Post> postList) {
-                Log.e(TAG, "onNext: "+postList.get(0).getBody() );
+//                Log.e(TAG, "onNext: "+postList.get(0).getBody() );
                 showPostList(postList);
 
             }

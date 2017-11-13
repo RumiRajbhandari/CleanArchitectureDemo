@@ -1,5 +1,6 @@
 package com.example.data;
 
+import com.example.domain.Post;
 import com.example.domain.User;
 
 import java.util.List;
@@ -13,10 +14,13 @@ import io.reactivex.Observable;
 
 public interface UserCache
 {
-    Observable<User> get(final  int userId);
+    Observable<List<User>> get(int userId);
     void put(List<User> user);
-    boolean isCached(int id);
+    void putPost(List<Post> post);
+    boolean isCachedUser(int id);
+    boolean isCachedPost(int id);
     boolean isExpired();
     Observable<List<User>> getAllUser();
+    Observable<List<Post>> getAllPost(int postId);
 
 }
